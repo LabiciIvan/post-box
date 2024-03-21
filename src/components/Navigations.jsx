@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, Outlet } from "react-router-dom";
 import '../css/navigations.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
@@ -12,18 +13,21 @@ const Navigation = () => {
         {
             id: 1,
             name: 'Products',
+            url: '/management-tool/products',
             icon: 'bi bi-shop icon-size',
             position: 'wrapper-first',
         },
         {
             id: 2,
             name: 'Customers',
+            url: '/management-tool/customers',
             icon: 'bi bi-people-fill icon-size',
             position: 'wrapper-second',
         },
         {
             id: 3,
             name: 'Transactions',
+            url: '/management-tool/transactions',
             icon: 'bi bi-currency-exchange icon-size',
             position: 'wrapper-third',
         }
@@ -34,14 +38,15 @@ const Navigation = () => {
             setWidth('400px');
             setVisibility('flex');
         } else {
-            setWidth('30px');
+            setWidth('15px');
             setVisibility('none');
         }
 
         setCollapse(!collapse);
     }
-    
+
     return (
+        <>
         <div className='navigation-menu'>
             <div className='navigation-logo' style={{display: visibility}}>
                 <h3 className='logo-text'>Management Tool</h3>
@@ -50,14 +55,14 @@ const Navigation = () => {
                 {
                     navItems.map((item) => 
                         <div key={item.id} className={'menu-wrapper ' + item.position}>
-                        <div className='menu-item' style={{display: visibility}}>
+                        <Link className='menu-item' style={{display: visibility}} to={item.url}>
                             <div className='item-icon'>
                                 <i className={item.icon}></i>
                             </div>
                             <div className='item-text'>
                                 {item.name}
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     )
                 }
@@ -66,6 +71,8 @@ const Navigation = () => {
                 </div>
             </div>
         </div>
+        <Outlet />
+        </>
     )
 }
 
