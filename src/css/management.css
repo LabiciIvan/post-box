@@ -1,0 +1,99 @@
+.main-management {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.management-window {
+    display: flex;
+    flex-direction: column;
+    background-color: #fcfcfc;
+    width: 98%;
+    height: 98%;
+    overflow-y: scroll;
+}
+
+.management-header {
+    background-color: #6B8AF8;
+    height: 40px;
+    display: flex;
+    border-top-left-radius: 5px;
+    border-top-right-radius:5px ;
+    color: white;
+    align-items: center;
+    padding: 10px;
+    font-size: 18px;
+}
+
+table {
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+thead {
+    background-color: #94aaf9;
+    color: white;
+    cursor: pointer;
+}
+
+tbody {
+    background-color: #dae0f7;
+    color: rgb(0, 0, 0);
+}
+
+tbody tr:hover {
+    transition: 0.1s;
+    background-color:#b4b9cf;
+}
+
+td, th {
+    border: 1px solid #f8f8f8;
+    text-align: center;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.link-details {
+    text-decoration: none;
+    color: #0e4372;
+}
+
+.link-details:hover {
+    color:#02101c;
+}
+
+.details-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #202021e8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.details {
+    display: grid;
+    background-color: white;
+    width:80%;
+    height: 80%;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+}
+
+.close-details {
+    grid-area: 1/12/2/13;
+    background-color: #94aaf9;
+    border-radius: 5px;
+    border: 2px solid rgb(112, 112, 177);
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin-top: 5px;
+    width: 50px;
+    height: 50px;
+}
+
