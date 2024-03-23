@@ -23,18 +23,32 @@
     display: grid;
     height: 100%;
     width: 100%;
-    background-color: #fcfcfc;
+    background-color: #FEFEFF;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    row-gap: 3px;
+    grid-template-rows: repeat(10, 1fr);
+    row-gap: 10px;
     border-right: 1px solid #F4F4F6;
+    padding: 7px;
 }
 
 .menu-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    background-color: #F4F4F6;
+    max-height: 70px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.menu-section {
+    display: grid;
+    height: 95%;
+    width: 95%;
+    grid-template-columns: 20% 80%;
+    column-gap: 10px;
+    text-decoration: none;
+    justify-content: center;
 }
 
 .wrapper-first {
@@ -68,9 +82,12 @@
 
 .item-icon {
     display: flex;
-    width: 25%;
     justify-content: center;
     align-items: center;
+    grid-area: 1/1/2/2;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    border: 2px solid #EEEEEE;
 }
 
 .icon-size {
@@ -79,13 +96,16 @@
 }
 
 .item-text {
+    background-color: #F9F9F9;
     display: flex;
-    width: 80%;
     color: #44484D;
     justify-content: start;
     align-items: center;
     font-size: 20px;
     padding-left: 10px;
+    grid-area: 1/2/2/3;
+    border-radius: 10px;
+    border: 2px solid #EEEEEE;
 }
 
 .menu-item:hover {

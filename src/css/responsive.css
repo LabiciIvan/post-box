@@ -1,0 +1,31 @@
+
+/* Bigger then 1600px */
+@media only screen and (min-width: 1600px) {
+    #root {
+        width: 1440px;
+    }
+
+    .navigation-body {
+        grid-template-rows: repeat(14, 1fr);
+    }
+
+    .management-window {
+        grid-template-rows: repeat(14, 1fr);
+    }
+
+    .management-body {
+        grid-area: 2/1/15/11;
+    }
+}
+
+/* Smaller then 1600px */
+@media only screen and (max-width: 1600px) {
+
+    #root {
+        width: 100%;
+    }
+
+    .navigation-body {
+        grid-template-rows: repeat(8, 1fr);
+    }
+}

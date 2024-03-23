@@ -9,13 +9,11 @@
 body {
     display: flex;
     justify-content: center;
-    background-color: rgb(238, 238, 238);
+    background-color:  #F4F4F6;
 }
 
 #root {
     display: flex;
-    max-width: 1500px;
-    width: 1500px;
     height: 100vh;
     flex-direction: row;
     align-items: center;
@@ -31,6 +29,35 @@ body {
 td,
 th,
 h3,
-.item-text {
-    font-family: monospace;
+.item-id,
+.item-name,
+.item-more,
+.item-title,
+.menu-wrapper,
+.time-text,
+.item-label,
+.btn {
+    font-weight: 400;
+    font-family: "JetBrains Mono", monospace;
 }
+
+/* Styles the scrollbar track (background) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Styles the scrollbar thumb (the draggable element) */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  /* Styles the scrollbar thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Styles the width of the scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
