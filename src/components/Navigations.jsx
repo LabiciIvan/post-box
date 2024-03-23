@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 const Navigation = () => {
 
     const [width, setWidth] = useState('400px');
-    const [visibility, setVisibility] = useState('flex');
+    const [visibility, setVisibility] = useState('grid');
     const [collapse, setCollapse] = useState(false);
 
     const navItems = [
@@ -36,7 +36,7 @@ const Navigation = () => {
     const triggerCollapseExpandMenu = () => {
         if (collapse) {
             setWidth('400px');
-            setVisibility('flex');
+            setVisibility('grid');
         } else {
             setWidth('15px');
             setVisibility('none');
@@ -51,19 +51,19 @@ const Navigation = () => {
             <div className='navigation-logo' style={{display: visibility}}>
                 <h3 className='logo-text'>Management Tool</h3>
             </div>
-            <div className='navigation-body' style={{ width: width}}>
+            <div className='navigation-body' style={{ width: width}} >
                 {
                     navItems.map((item) => 
                         <div key={item.id} className={'menu-wrapper ' + item.position}>
-                        <Link className='menu-item' style={{display: visibility}} to={item.url}>
-                            <div className='item-icon'>
-                                <i className={item.icon}></i>
-                            </div>
-                            <div className='item-text'>
-                                {item.name}
-                            </div>
-                        </Link>
-                    </div>
+                            <Link className="menu-section" to={item.url} style={{display: visibility}}>
+                                <div className='item-icon'>
+                                    <i className={item.icon}></i>
+                                </div>
+                                <div className='item-text'>
+                                    {item.name}
+                                </div>
+                            </Link>
+                        </div>
                     )
                 }
                 <div className='collapse-expand-menu' onClick={triggerCollapseExpandMenu}>
