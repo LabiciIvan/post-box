@@ -16,6 +16,10 @@
     .management-body {
         grid-area: 2/1/15/11;
     }
+
+    .customize {
+        grid-area: 9/14/15/2;
+    }
 }
 
 /* Smaller then 1600px */

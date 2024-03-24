@@ -14,26 +14,19 @@ const Router = () => {
             errorElement: <div>404 Not Found</div>,
             children: [
                 {
-                    path: "products",
-                    element: <Management  title={'products'}/>,
-                    errorElement: <div>404 Not Found</div>
-                },
-                {
-                    path: "customers",
-                    element: <Management  title={'customers'}/>,
-                    errorElement: <div>404 Not Found</div>
-                },
-                {
-                    path: "transactions",
-                    element: <Management title={'transactions'}/>,
+                    path: "categories/:title",
+                    element: <Management />,
                     errorElement: <div>404 Not Found</div>
                 }
             ]
-        },
-
+        }
     ])
 
-    return <RouterProvider router={router}/>;
+    return (
+        <>
+            <RouterProvider router={router}/>
+        </>
+    );
 }
 
 export default Router;
