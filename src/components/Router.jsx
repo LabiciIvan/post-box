@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from './Navigations';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
-import data from '../assets/data';
+
 
 import Management from './Management';
 
@@ -15,17 +15,17 @@ const Router = () => {
             children: [
                 {
                     path: "products",
-                    element: <Management service={data.products} title={'Products'}/>,
+                    element: <Management  title={'products'}/>,
                     errorElement: <div>404 Not Found</div>
                 },
                 {
                     path: "customers",
-                    element: <Management service={data.customers} title={'Customers'}/>,
+                    element: <Management  title={'customers'}/>,
                     errorElement: <div>404 Not Found</div>
                 },
                 {
                     path: "transactions",
-                    element: <Management service={data.transactions} title={'Transactions'}/>,
+                    element: <Management title={'transactions'}/>,
                     errorElement: <div>404 Not Found</div>
                 }
             ]

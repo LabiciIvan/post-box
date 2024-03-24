@@ -1,30 +1,66 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { cloneDeep } from 'lodash';
+
 import '../css/management.css';
+import listData from '../assets/data';
 
-const Management = ({service, title}) => {
+const Management = ({title}) => {
 
+    const [data, setData]       = useState(listData);
+    const [future, setFuture]   = useState(false);
     const [display, setDisplay] = useState('none');
-    const [details, setDetails] = useState(false);
+    const [item, setItem]       = useState(false);
 
-    const findItemAndDisplay = (id) => {
-        let item = service.find(item => item.id === id);
+    const getPosition = (data, id) => {
+        for (let i = 0; i < data.length; ++i) {
+            if (data[i]['id'] === id) {
+                return i;
+            }
+        }
+    }
+
+    const selectItem = (id) => {
+        let index = getPosition(data[title], id);
         setDisplay('flex');
-        setDetails(item);
+        setItem(data[title][index]);
     }
 
-    const closeDetails = () => {
+    const deleteItemEntry = (label, id) => {
+        let index = getPosition(data[title], id);
+
+        let copyData = cloneDeep(data);
+
+        delete copyData[title][index][label];
+
+        setItem(copyData[title][index]);
+        setFuture(copyData);
+    }
+
+    const closeWindow = () => {
         setDisplay('none');
-        setDetails(false);
+        setItem(false);
     }
-    
-    const saveDetails = (id) => {
+
+    const saveItem = () => {
         setDisplay('none');
-        setDetails(false);
+        setItem(false);
+        setData((future ? future : data));
     }
 
-    const loadDetails = () => {
+    const handleInput = (value, key, id) => {
 
-        let itemKeys = Object.keys(details);
+        let copyData = cloneDeep(data);
+
+        let index = getPosition(copyData[title], id);
+
+        copyData[title][index][key] = value;
+
+        setFuture(copyData);
+    }
+
+    const loadItem = () => {
+
+        let itemKeys = Object.keys(item);
 
         let chunks = [];
 
@@ -34,13 +70,13 @@ const Management = ({service, title}) => {
 
         return (
             chunks.map((chunk, index) => (
-                <div className="item-column" key={index}>
+                <div className='item-column' key={index}>
                     {
-                        chunk.map((bit, bitIndex) => (
-                            <div className="item-data" key={bitIndex}>
-                                <div className="item-label">{bit}</div>
-                                <div className="item-delete"><i className="bi bi-trash-fill"></i></div>
-                                <textarea className="item-textarea">{details[bit]}</textarea>
+                        chunk.map((label, bitIndex) => (
+                            <div className='item-data' key={bitIndex}>
+                                <div className='item-label'>{label}</div>
+                                <div className='item-delete'><i className='bi bi-trash-fill' onClick={() => deleteItemEntry(label, item['id'])}></i></div>
+                                <textarea className='item-textarea' onChange={(e) => handleInput(e.target.value, label, item['id'])} defaultValue={item[label]}></textarea>
                             </div>
                         ))
                     }
@@ -51,39 +87,39 @@ const Management = ({service, title}) => {
 
     return (
         <div className='main-management'>
-            <div className="management-window">
-                <div className="management-header">
-                    <div className="management-title">
-                        <div className="title-section">
+            <div className='management-window'>
+                <div className='management-header'>
+                    <div className='management-title'>
+                        <div className='title-section'>
                             <h3>{title}</h3>
                         </div>
                     </div>
-                    <div className="management-time">
-                        <div className="time-section">
-                        <div className="time-text">09:00:03</div>
-                            <div className="time-icon"><i className="bi bi-clock-fill"></i></div>
+                    <div className='management-time'>
+                        <div className='time-section'>
+                        <div className='time-text'>09:00:03</div>
+                            <div className='time-icon'><i className='bi bi-clock-fill'></i></div>
                         </div>
                     </div>
                 </div>
 
-                <div className="management-body">
-                    {service.map(item =>
-                        <div className="item-wrapper" key={item.id}>
-                            <div className="item-id">{item.id}</div>
-                            <div className="item-name">{item.name}</div>
-                            <div className="item-more" onClick={() => findItemAndDisplay(item.id)}><i className="bi bi-arrows-angle-expand"></i></div>
+                <div className='management-body'>
+                    {data[title].map((item, index) =>
+                        <div className='item-wrapper' key={index}>
+                            <div className='item-id'>{index}</div>
+                            <div className='item-name'>{item.name}</div>
+                            <div className='item-more' onClick={() => selectItem(item.id)}><i className='bi bi-arrows-angle-expand'></i></div>
                         </div>
                     )}
                 </div>
 
-                <div className="block-window" style={{display: display}}>
-                    <div className="details-wrapper">
-                        <div className="item-title">{details ? details.name : ''}</div>
-                        <button className='save-item btn' onClick={() => saveDetails(details['id'])}>Save</button>
-                        <button className='close-item btn' onClick={closeDetails}>X</button>
+                <div className='block-window' style={{display: display}}>
+                    <div className='details-wrapper'>
+                        <div className='item-title'>{item ? item.name : ''}</div>
+                        <button className='save-item btn' onClick={() => saveItem()}>Save</button>
+                        <button className='close-item btn' onClick={() => closeWindow()}>X</button>
 
-                        <div className="item-specifications">
-                            {details ? loadDetails() : ''}
+                        <div className='item-specifications'>
+                            {item ? loadItem() : ''}
                         </div>
                     </div>
                 </div>

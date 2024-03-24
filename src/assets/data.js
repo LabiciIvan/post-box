@@ -1,4 +1,4 @@
-const data = {
+const listData = {
     products: [
         { id: 1, name: 'Smartphone', price: '699.99' },
         { id: 2, name: 'Laptop', price: '1299.99' },
@@ -66,4 +66,4 @@ const data = {
     ]
 }
 
-export default data;
+export default listData;
