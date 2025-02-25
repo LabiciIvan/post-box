@@ -1,11 +1,22 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App'
+import { Router} from './Router';
+import AuthProvider from './context/AuthContext';
+import ViewSectionProvider from './context/ViewSectionContext';
+
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.scss'
+import './index.scss';
+import ComposeProvider from './context/ComposeContext';
 
 const rootElement = document.getElementById('root') as HTMLElement;
 
+
+
 createRoot(rootElement).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <AuthProvider>
+    <ViewSectionProvider>
+      <ComposeProvider>
+        <Router />
+      </ComposeProvider>
+    </ViewSectionProvider>
+  </AuthProvider>
 )
