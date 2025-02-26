@@ -3,6 +3,8 @@ import {
   RouterProvider,
   Route,
   Link,
+  Routes,
+  HashRouter
 } from 'react-router-dom';
 
 import Login from './pages/Login';
@@ -14,26 +16,46 @@ import NavigationBar from './components/NavigationBar';
 
 const Router = () => {
 
-  const router = createBrowserRouter([
-    {
-      path: 'post-box/',
-      element:
-      <App>
-        <NavigationBar>
-          <Logout />
-        </NavigationBar>
-        <SectionsMenu />
-        <SectionView />
-      </App>
-    },
-    {
-      path: 'post-box/login',
-      element: <Login />
-    }
-  ]);
+  // Use createBrowserRouter for normal deployments
+  // const router = createBrowserRouter([
+  //   {
+  //     path: 'post-box/',
+  //     element:
+  //     <App>
+  //       <NavigationBar>
+  //         <Logout />
+  //       </NavigationBar>
+  //       <SectionsMenu />
+  //       <SectionView />
+  //     </App>
+  //   },
+  //   {
+  //     path: 'post-box/login',
+  //     element: <Login />
+  //   }
+  // ]);
 
   return (
-    <RouterProvider router={router} />
+    // <RouterProvider router={router} />
+
+    // Use HashRouter for deployments on GitHub Pages
+    <HashRouter>
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <App>
+              <NavigationBar>
+                <Logout />
+              </NavigationBar>
+              <SectionsMenu />
+              <SectionView />
+            </App>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </HashRouter>
   )
 }
 
