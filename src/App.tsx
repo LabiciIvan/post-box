@@ -10,7 +10,7 @@ const App = ({children} : {children: React.ReactNode}) => {
   const { user } = auth;
 
   if (!user) {
-    return <Navigate to={'/post-box/login'}/>
+    return <Navigate to={'/login'}/>
   }
 
   return (

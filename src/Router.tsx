@@ -53,7 +53,7 @@ const Router = () => {
             </App>
           }
         />
-        <Route path="/login" element={<Login />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </HashRouter>
   )
