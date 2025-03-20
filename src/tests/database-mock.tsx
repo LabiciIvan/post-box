@@ -1,10 +1,6 @@
-import { isUserLoggedIn } from '../hooks/Auth';
 import { User, UserNotFoundErrorType, Email, InboxType, GeneralFetchError, InboxTypeKeys } from '../types';
 
 import { users, inboxData } from './data';
-
-// import Bill from '../assets/Bill.jpeg';
-// import Joe from '../assets/Joe.jpg';
 
 // Default server delay time 2 seconds
 const DEFAULT_DELAY_TIME_LONG = 1500;
@@ -171,14 +167,31 @@ const deleteEmailFromALocalStorageCategory = (loggedUserID: number, emailID: str
   });
 }
 
-const markInboxEmail = (emailID: string, userID: number, inboxKey: keyof InboxTypeKeys, isRead: boolean) => {
+const markInboxEmail = (emailID: string, userID: number, inboxKey: keyof InboxTypeKeys, isRead: boolean): void => {
 
   const UNIQUE_KEY = UNIQUE_STORAGE_NAME + `-${userID}`;
 
   let inboxData = getEmailFromLocalStorage(userID);
 
-  // inboxData[0]['inbox'] = inboxData[0].inbox.map(email => email.id === emailID ? {...email, emailRead: true} : email);
   inboxData[0][inboxKey] = inboxData[0][inboxKey].map(email => email.id === emailID ? {...email, emailRead: isRead} : email);
+
+  deleteLocalStorageForLoggedOutUser(userID);
+
+  localStorage.setItem(UNIQUE_KEY, JSON.stringify(inboxData));
+}
+
+const moveInboxEmail = (emailID: string, userID: number, moveFromCategory: keyof InboxTypeKeys, moveToCategory: keyof InboxTypeKeys): void => {
+  const UNIQUE_KEY = UNIQUE_STORAGE_NAME + `-${userID}`;
+
+  let inboxData = getEmailFromLocalStorage(userID);
+
+  const extractedEmail = inboxData[0][moveFromCategory].filter(email => email.id === emailID)[0];
+
+  const categoryWithoutExtractedEmail = inboxData[0][moveFromCategory].filter(email => email.id !== emailID);
+
+  inboxData[0][moveFromCategory] = categoryWithoutExtractedEmail;
+
+  inboxData[0][moveToCategory] = [...inboxData[0][moveToCategory], extractedEmail];
 
   deleteLocalStorageForLoggedOutUser(userID);
 
@@ -194,5 +207,6 @@ export {
   syncApplicationLocalStorage,
   deleteLocalStorageForLoggedOutUser,
   deleteEmailFromALocalStorageCategory,
-  markInboxEmail
+  markInboxEmail,
+  moveInboxEmail
 }
