@@ -1,13 +1,16 @@
-import { useContext, useState } from 'react';
-import { CCType, Email, MailUser } from '../types';
+import { useContext, useEffect, useState } from 'react';
+import { CCType, ComposeOrDraftType, Email, FontTypes, MailUser, NotificationsTypes } from '../types';
 import { AuthContext } from '../context/AuthContext';
 import { ComposeContext } from '../context/ComposeContext';
 import { ViewSectionContext } from '../context/ViewSectionContext';
 import { deleteEmailFromALocalStorageCategory, insertEmailInLocalStorage } from '../tests/database-mock';
 import { isValidEmail } from '../hooks/Utilities';
 import EmailUserBadge from './EmailUserBadge';
+import WriteSettings from './WriteSettings';
+import FontContext from '../context/FontContext';
+import NotificationsBadge from './NotificationsBadge';
 
-const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
+const ReadWriteEmail = ({email, composeOrDraft}:{email: Email, composeOrDraft: ComposeOrDraftType}): React.ReactNode => {
 
   const {id, cc, sender, receiver, title, message } = email;
 
@@ -30,6 +33,14 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
   const [messageEmail, setMessageEmail] = useState<string>(message);
 
 
+  // NotificationBadge componen state
+  const [showNotificationBadge, setShowNotificationBadge] = useState<boolean>(false);
+
+  const [notificationMessages, setNotificationMessages] = useState<string[]>([]);
+
+  const [notificationStatus, setNotificationStatus] = useState<NotificationsTypes>('error');
+
+
   // Context for authenticated user
   const auth = useContext(AuthContext);
 
@@ -45,6 +56,18 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
 
   const {title : viewTitle, selectView} = view;
 
+  useEffect(() => {
+
+    if (receiverEmail[0].email.length > 0 && isValidEmail(receiverEmail[0].email)) {
+      setShowReceiverBadge(() => true);
+    }
+  }, []);
+
+
+  // Context for FontSize
+  const fontContext = useContext(FontContext);
+
+  const {fontSize, fontType, changeSize, changeType} = fontContext;
 
   // Composed email template
   let composedDraftEmail: Email = {
@@ -61,6 +84,9 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
     }],
     title: titleEmail,
     message: messageEmail,
+    emailRead: false,
+    fontSize: fontSize,
+    fontType: fontType,
   }
 
 
@@ -121,6 +147,8 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
       receiver: [{ email: receiverEmail[0]['email']}],
       title: titleEmail,
       message: messageEmail,
+      fontSize: fontSize,
+      fontType: fontType,
     };
 
     if (titleInput.length > 0 || (titleInput.length === 0 && messageEmail.length > 0)) {
@@ -142,6 +170,8 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
       receiver: [{ email: receiverEmail[0]['email']}],
       title: titleEmail,
       message: messageEmail,
+      fontSize: fontSize,
+      fontType: fontType,
     };
 
     if (messageInput.length > 0 || (messageInput.length === 0 && titleEmail.length > 0)) {
@@ -157,7 +187,26 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
 
   const handleSendEmail = (): void => {
     // Can't send email without receiver, title and message
-    if (receiverEmail[0]['email'].length === 0 || titleEmail.length === 0 || messageEmail.length === 0) return;
+    const errors: string[] = [];
+
+    if (receiverEmail[0]['email'].length === 0) {
+      errors.push('Missing receiver address.');
+    }
+    
+    if (titleEmail.length === 0) {
+      errors.push('Missing email title');
+    }
+    
+    if (messageEmail.length === 0) {
+      errors.push('Missing email message');
+    }
+    
+    if (errors.length > 0 ) {
+      setNotificationMessages(() => errors);
+      setShowNotificationBadge(() => true);
+      setNotificationStatus('error');
+      return;
+    }
 
     const composedEmail: Email = {
       id: id,
@@ -173,7 +222,14 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
       }],
       title: titleEmail,
       message: messageEmail,
+      emailRead: false,
+      fontSize: fontSize,
+      fontType: fontType
     }
+
+    // Reset FontContext to default values
+    changeSize('16');
+    changeType('Nunito');
 
     insertEmailInLocalStorage(composedEmail, (!user ? 0 : user.id), 'sent');
 
@@ -192,6 +248,14 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
 
     doesntHaveContent();
     setEmail(null);
+    setNotificationMessages(() => ['Email sent successfully']);
+    setShowNotificationBadge(() => true);
+    setNotificationStatus('success');
+  }
+
+  const closeNotificationBadge = (): void => {
+    setNotificationMessages(() => []);
+    setShowNotificationBadge(() => false);
   }
 
 
@@ -199,7 +263,10 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
     <div className='read-write-email'>
 
       <div className='read-write-section'>
-        <p>TO:</p>
+      {
+        showNotificationBadge && <NotificationsBadge messages={notificationMessages} status={notificationStatus} onCloseNotification={closeNotificationBadge}/>
+      }
+        <p>Receiver</p>
         <div className='input-wrapper'>
           {
             showReceiverBadge ? 
@@ -217,10 +284,9 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
       </div>
 
       <div className='read-write-section'>
-        <p>CC:</p>
+        <p>Cc</p>
         <div className='input-wrapper'>
           {
-            // ccList.length > 0 && ccList.map(ccEmail => <div key={ccEmail.email}>{ccEmail.email}</div>)
             ccList.length > 0 && ccList.map(ccEmail => <EmailUserBadge user={ccEmail} onRemoveUserBadge={handleRemoveEmailFromCCList}/>)
           }
           <input
@@ -237,7 +303,7 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
         <div className='input-wrapper'>
           <input
             type='text'
-            placeholder='Email title...'
+            placeholder='Subject...'
             value={titleEmail}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleTitleEmail(e.target.value)} 
           />
@@ -247,14 +313,17 @@ const ReadWriteEmail = ({email}:{email: Email}): React.ReactNode => {
       <div className='read-write-section'>
         <div className='input-wrapper'>
           <textarea
+            className={`textarea-email-message ${composeOrDraft === 'draft' ? email.fontType + ` font-` + email.fontSize : fontType + ` font-` + fontSize}` }
             value={messageEmail}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleMessageEmail(e.target.value)} 
           />
         </div>
       </div>
-      
+      {
+        <WriteSettings email={email} composeOrDraft={composeOrDraft}/>
+      }
       <div className='footer'>
-        <button onClick={handleSendEmail}>Send</button>
+        <button className='send-button' onClick={handleSendEmail}>Send</button>
       </div>
     </div>
   )
