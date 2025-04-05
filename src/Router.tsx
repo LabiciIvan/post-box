@@ -11,33 +11,15 @@ import Login from './pages/Login';
 import App from './App';
 import SectionsMenu from './components/SectionsMenu';
 import SectionView from './components/SectionView';
-import Logout from './components/Logout';
 import NavigationBar from './components/NavigationBar';
+import DummyUsers from './pages/DummyUsers';
+import UserBadge from './components/UserBadge';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 
 const Router = () => {
 
-  // Use createBrowserRouter for normal deployments
-  // const router = createBrowserRouter([
-  //   {
-  //     path: 'post-box/',
-  //     element:
-  //     <App>
-  //       <NavigationBar>
-  //         <Logout />
-  //       </NavigationBar>
-  //       <SectionsMenu />
-  //       <SectionView />
-  //     </App>
-  //   },
-  //   {
-  //     path: 'post-box/login',
-  //     element: <Login />
-  //   }
-  // ]);
-
   return (
-    // <RouterProvider router={router} />
-
     // Use HashRouter for deployments on GitHub Pages
     <HashRouter>
       <Routes>
@@ -46,14 +28,39 @@ const Router = () => {
           element={
             <App>
               <NavigationBar>
-                <Logout />
+                <UserBadge />
+                {/* <Logout /> */}
               </NavigationBar>
               <SectionsMenu />
               <SectionView />
             </App>
           }
         />
-        <Route path='/login' element={<Login />} />
+        <Route
+          path='/login'
+          element={
+            <App>
+              <DummyUsers />
+              <Login />
+            </App>
+          }
+        />
+        <Route
+          path='/profile'
+          element={
+            <App>
+              <Profile />
+            </App>
+          }
+        />
+        <Route
+          path='/settings'
+          element={
+            <App>
+              <Settings />
+            </App>
+          }
+        />
       </Routes>
     </HashRouter>
   )
