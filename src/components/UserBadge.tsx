@@ -21,6 +21,10 @@ const UserBadge = (): React.ReactNode => {
     return navigate('/profile');
   }
 
+  const navigateToSettingsPage = () => {
+    return navigate('/settings');
+  }
+
   return (
     <div className='user-badge'>
       <div
@@ -47,11 +51,11 @@ const UserBadge = (): React.ReactNode => {
         </div>
 
         <div className='badge-section'>
-          <h4 className='title -single-element'>Settings</h4>
+          <h4 className='title -single-element' onClick={navigateToSettingsPage}>Settings</h4>
         </div>
 
         <div className='badge-section'>
-          <h4 className='title -single-element' onClick={() => navigateToProfilePage()}>Profile</h4>
+          <h4 className='title -single-element' onClick={navigateToProfilePage}>Profile</h4>
         </div>
 
         <div className='badge-section'>
