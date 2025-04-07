@@ -34,9 +34,7 @@ const SearchEmails = (): React.ReactNode => {
 
 
   const searchUsingQuery = (key: string|null): void => {
-    console.log('key', key);
     if (query.length === 0 || (key !== null && key !== 'Enter')) return;
-    console.log('searc');
 
     const searchResults: InboxType[] = [{
       belongsTo: user.id,
@@ -55,10 +53,9 @@ const SearchEmails = (): React.ReactNode => {
 
     const regex = new RegExp(words.map(word => `(?=.*\\b${word}\\b)`).join(""), "i");
 
+    setQuery(() => '');
+
     const allEmails: InboxType[] = getEmailFromLocalStorage(user.id);
-
-    console.log('allEmails', allEmails);
-
 
     const { inbox, draft, sent, deleted } = allEmails[0];
 
