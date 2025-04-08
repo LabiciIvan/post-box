@@ -1,19 +1,34 @@
 import { useContext, useEffect, useState } from 'react';
-import { InboxTypeKeys, SectionMenuType } from '../types';
+import { InboxTypeKeys, NotificationsTypes, SectionMenuType } from '../types';
 import { ViewSectionContext } from '../context/ViewSectionContext';
 import { ComposeContext } from '../context/ComposeContext';
 import { deleteEmailFromALocalStorageCategory, insertEmailInLocalStorage } from '../tests/database-mock';
 import { AuthContext } from '../context/AuthContext';
 import UnreadEmailCountContext from '../context/ReadEmailContext';
 import FontContext from '../context/FontContext';
+import NotificationsBadge from './NotificationsBadge';
 
 const SectionsMenu = () => {
 
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+  
   const compose = useContext(ComposeContext);
 
   const { content, doesntHaveContent, emailContent, setEmail} = compose;
 
   const [selected, setSelected] = useState<keyof InboxTypeKeys>('inbox');
+
+  // NotificationBadge componen state
+  const [showNotificationBadge, setShowNotificationBadge] = useState<boolean>(false);
+
+  const [notificationMessages, setNotificationMessages] = useState<string[]>([]);
+
+  const [notificationStatus, setNotificationStatus] = useState<NotificationsTypes>('warning');
+
+  const closeNotificationBadge = (): void => {
+    setNotificationMessages(() => []);
+    setShowNotificationBadge(() => false);
+  }
 
 
   // Context UnreadEmailsContext
@@ -73,14 +88,21 @@ const SectionsMenu = () => {
   const handleSelectView = (view: any): void => {
     // Switching view always check if the emails should be saved as draft.
     if (content && emailContent) {
+      setShowNotificationBadge(() => true)
+      setNotificationMessages(['Email message saved to draft.']);
       deleteEmailFromALocalStorageCategory(user.id, emailContent.id, 'draft');
       insertEmailInLocalStorage(emailContent, user.id, 'draft');
     }
 
     // Reset WriteSettings FontContext when switching from inbox or draft.
     if (view === 'inbox' || view === 'draft') {
-      changeSize('');
-      changeType('Inter')
+      changeSize('16');
+      changeType('Nunito')
+    }
+
+    // Smaller devices hide the show menu when toggled on.
+    if (showMenu) {
+      setShowMenu(() => false);
     }
 
     // Skip useless state update.
@@ -93,12 +115,17 @@ const SectionsMenu = () => {
 
   return (
     <nav className='sections-menu'>
+      {
+        showNotificationBadge && <NotificationsBadge messages={notificationMessages} status={notificationStatus} onCloseNotification={closeNotificationBadge}/>
+      }
 
       <div className='app-logo'>
         Post-Box
       </div>
 
-      <div className='links-menu'>
+      {/* <div className='links-menu'> */}
+      <div className={`links-menu ${showMenu && 'show-menu'}`}>
+        <button className='show-toggle-button' onClick={() => setShowMenu(prev => !prev)}>{ showMenu ? <i className='bi bi-arrow-left'/> : <i className='bi bi-arrow-right'/>}</button>
       {
         sectionLinks.map(nav =>
           <div className={`link ${selected === nav.view && 'selected'}`} key={nav.view} onClick={() => handleSelectView(nav.view)}>
