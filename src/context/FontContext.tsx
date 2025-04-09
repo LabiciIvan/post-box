@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import { FontInterface, FontTypes } from "../types";
 
 const FontContext = createContext<FontInterface>({
-  fontSize: '18',
-  fontType: 'Inter',
+  fontSize: '16',
+  fontType: 'Nunito',
   changeSize: (size: string) => {},
   changeType: (font: FontTypes) => {},
 });
@@ -11,9 +11,9 @@ const FontContext = createContext<FontInterface>({
 
 const FontContextProvider = ({children}:{children:React.ReactNode}): React.ReactNode => {
 
-  const [fontSize, setFontSize] = useState<string>('18px');
+  const [fontSize, setFontSize] = useState<string>('16');
 
-  const [fontType, setFontType] = useState<FontTypes>('Inter');
+  const [fontType, setFontType] = useState<FontTypes>('Nunito');
 
   const changeSize = (size: string) => {
     setFontSize(() => size);
