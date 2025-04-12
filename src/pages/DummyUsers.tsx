@@ -27,6 +27,7 @@ const DummyUsers = (): React.ReactNode => {
       return;
     }
 
+    setExtend(() => false);
     setAccountSelected(() => user.email);
     handleEmail(user.email);
     handlePassword(user.password);
@@ -51,8 +52,9 @@ const DummyUsers = (): React.ReactNode => {
         )
       }
       {
-        <div className='extend-collapse-button' onClick={extendOrCollapseArea}>
-          <i className={`bi bi-arrow-${extend ? 'left' : 'right'}-square-fill`} />
+        <div className={`extend-collapse-button ${extend && '_extended'}`} onClick={extendOrCollapseArea}>
+          <small>{extend ? 'Picked!' : 'Pick a user'}</small>
+          <i className={`bi bi-arrow-${extend ? 'left' : 'right'}-square`} />
         </div>
       }
     </div>
