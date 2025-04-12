@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
-import { User } from '../types';
+import { useContext, useEffect, useState } from 'react';
+import { ProfileInterface, User } from '../types';
 import { Navigate } from 'react-router-dom';
-import { fetchUser, syncApplicationLocalStorage } from '../tests/database-mock';
+import { fetchInbox, fetchProfile, fetchUser, getEmailFromLocalStorage, syncApplicationLocalStorage } from '../tests/database-mock';
 import { loginUser } from '../hooks/Auth';
 import { AuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
+import { LoginContext } from '../context/LoginContext';
+import UnreadEmailCountContext from '../context/ReadEmailContext';
 
 const Login = (): any => {
 
@@ -16,6 +18,10 @@ const Login = (): any => {
     return <Navigate to={'/'}/>
   }
 
+  const loginContext = useContext(LoginContext);
+
+  const {emailLogin, passwordLogin, handleEmail, handlePassword} = loginContext;
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [keepLogged, setKeepLogged] = useState<boolean>(false);
@@ -25,6 +31,17 @@ const Login = (): any => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
+  const unreadEmailsContext = useContext(UnreadEmailCountContext);
+
+  const {updateCount} = unreadEmailsContext;
+
+  useEffect(() => {
+
+    setEmail(() => emailLogin);
+    setPassword(() => passwordLogin);
+
+  }, [emailLogin, passwordLogin]);
+
   const handleSubmitForm = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     setLoading(() => true);
     e.preventDefault();
@@ -32,18 +49,40 @@ const Login = (): any => {
     setEmail(() => '');
     setPassword(() => '');
 
+    // Reset Login Context
+    handleEmail('');
+    handlePassword('');
+
     try {
       // Simulate a request from server to fetch user.
-      const user: User | false = await fetchUser(email, password);
+      let user: User | false = await fetchUser(email, password);
 
-      const isLoggedIn: boolean = loginUser(user);
+      let userProfile: ProfileInterface = await fetchProfile(user.id);
+
+      if (keepLogged) {
+        user = {...user, remeberLoggedIn: keepLogged}
+      }
+
+      let logoutAfterObj = new Date();
+
+      logoutAfterObj.setHours(logoutAfterObj.getHours() + 1);
+
+      user = {...user, logoutAfter: logoutAfterObj.toLocaleString()};
+
+      const isLoggedIn: boolean = loginUser(user, userProfile);
 
       if (isLoggedIn) {
         // Used only in development mode.
-        
+
         setLoading(() => false);
         login(user);
         syncApplicationLocalStorage(user.id);
+
+        const emails = getEmailFromLocalStorage(user.id)[0];
+
+        const unreadEmails = emails['inbox'].reduce((count, currentEmail) => count + (currentEmail.emailRead === false ? 1 : 0), 0);
+
+        updateCount(unreadEmails);
       }
 
     } catch (error: any) {
@@ -51,13 +90,14 @@ const Login = (): any => {
       setLoading(() => false);
       setEmailError(() => error.email);
       setPasswordError(() => error.password);
+      updateCount(0);
     }
   }
 
   return (
     <div className='login-page'>
       {
-        loading ? 
+        loading ?
         <Loading text={'Log in...'}/>
         :
         <div className='login-section'>
@@ -82,7 +122,7 @@ const Login = (): any => {
               </div>
 
               <div className='content-wrapper --ROW'>
-                <input type='checkbox'  onClick={() => setKeepLogged(prev => !prev)} checked={keepLogged}/>
+                <input type='checkbox' checked={keepLogged} onChange={() => setKeepLogged(prev => !prev)}/>
                 <small onClick={() => setKeepLogged(prev => !prev)}>Keep me logged in</small>
               </div>
 
