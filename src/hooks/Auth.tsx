@@ -1,6 +1,7 @@
-import { User } from '../types';
+import { ProfileInterface, User } from '../types';
 
 const localStorageName = 'post-box-storage';
+const localStorageProfileName = 'post-box-storage-profile';
 
 const isUserLoggedIn = (): User|false => {
   const userData: string|null = localStorage.getItem(localStorageName);
@@ -27,12 +28,15 @@ const isLoggedIn = (user: User): boolean => {
   return (name === user.name && password === user.password);
 }
 
-const loginUser = (credentials: User): boolean => {
+const loginUser = (credentials: User, profile: ProfileInterface): boolean => {
 
-  // const user: string = btoa(JSON.stringify(credentials));
   const user: string = JSON.stringify(credentials);
 
+  const profileUser: string = JSON.stringify(profile);
+
   localStorage.setItem(localStorageName, user);
+
+  localStorage.setItem(localStorageProfileName, profileUser);
 
   return true;
 }
