@@ -4,6 +4,8 @@ interface User {
   email: string,
   password: string,
   image: string,
+  remeberLoggedIn: boolean,
+  logoutAfter: string,
 }
 
 interface UserAttemptingLogin {
@@ -36,6 +38,9 @@ interface Email {
   receiver: CCType[],
   title: string,
   message: string,
+  emailRead: boolean,
+  fontSize: string,
+  fontType: FontTypes
 }
 
 interface InboxType {
@@ -53,6 +58,19 @@ interface InboxTypeKeys {
   sent: Email[],
   deleted: Email[],
   results: Email[],
+}
+
+type InboxTypeKeysString = 'inbox'| 'draft'| 'sent'| 'deleted';
+
+type FontTypes = 'Nunito'|'Inter'|'Roboto'|'Lato'|'Open Sans'|'Montserrat'|'Source Sans Pro'|'Pacifico';
+
+type ComposeOrDraftType = 'compose'|'draft';
+
+interface FontInterface {
+  fontSize: string,
+  fontType: FontTypes,
+  changeSize: (size: string) => void,
+  changeType: (font: FontTypes) => void,
 }
 
 interface GeneralFetchError {
@@ -78,6 +96,27 @@ interface CCType {
   email: string,
 }
 
+interface errorSearchType {
+  message: string,
+}
+
+type SettingsActionTypes = 'changeTheme'|'language'|'contentLanguage'|'soundEffects'|'closeAccount'|'hibernateAccount'|'paymentMethods';
+
+type NotificationsTypes = 'error' | 'success' | 'warning';
+
+interface ProfileInterface {
+  userID: number,
+  firstName: string,
+  lastName: string,
+  userName: string,
+  nickName: string,
+  socialMedia: string,
+  email: string,
+  phone: string,
+  address: string,
+  biographicalInfo: string,
+}
+
 export type {
   User,
   UserAttemptingLogin,
@@ -91,5 +130,13 @@ export type {
   ViewSectionContextType,
   SectionViewType,
   InboxTypeKeys,
-  CCType
+  CCType,
+  errorSearchType,
+  InboxTypeKeysString,
+  FontTypes,
+  FontInterface,
+  ComposeOrDraftType,
+  NotificationsTypes,
+  SettingsActionTypes,
+  ProfileInterface
 }

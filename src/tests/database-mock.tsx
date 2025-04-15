@@ -1,6 +1,6 @@
-import { User, UserNotFoundErrorType, Email, InboxType, GeneralFetchError, InboxTypeKeys } from '../types';
+import { User, UserNotFoundErrorType, Email, InboxType, GeneralFetchError, InboxTypeKeys, ProfileInterface } from '../types';
 
-import { users, inboxData } from './data';
+import { users, inboxData, profiles } from './data';
 
 // Default server delay time 2 seconds
 const DEFAULT_DELAY_TIME_LONG = 1500;
@@ -61,6 +61,22 @@ const fetchUser = (email: string, password: string): Promise<User> => {
 
     }, DEFAULT_DELAY_TIME_LONG);
   })
+}
+
+const fetchProfile = (userID: number): Promise<ProfileInterface> => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+
+      const userProfile: ProfileInterface = profiles.filter(p => p.userID === userID)[0];
+
+      if (!userProfile) {
+        reject({error: 'Could not find a matching profile'});
+      }
+
+      resolve(userProfile);
+      
+    }, DEFAULT_DELAY_TIME_LONG);
+  });
 }
 
 const fetchInbox = (ownerID: number): Promise<InboxType> => {
@@ -136,6 +152,9 @@ const deleteEmailFromALocalStorageCategory = (loggedUserID: number, emailID: str
 
   const emailsLocalStorage: InboxType[] = getEmailFromLocalStorage(loggedUserID);
 
+  // Don't do anything if there are no emails in localstorage
+  if (emailsLocalStorage[0] === undefined) return;
+
   const removedEmail: Email = emailsLocalStorage[0][CATEGORY].filter(email => email.id === emailID)[0];
 
   // Updated the current local storage
@@ -208,5 +227,6 @@ export {
   deleteLocalStorageForLoggedOutUser,
   deleteEmailFromALocalStorageCategory,
   markInboxEmail,
-  moveInboxEmail
+  moveInboxEmail,
+  fetchProfile
 }

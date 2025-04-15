@@ -1,4 +1,4 @@
-import { InboxType, User } from '../types';
+import { InboxType, ProfileInterface, User } from '../types';
 import BillImage from '../assets/bill.png';
 import JoeImage from '../assets/joe.png';
 import AnnieImage from '../assets/annie.png';
@@ -37,6 +37,45 @@ const users: User[] = [
   }
 ];
 
+const profiles: ProfileInterface[] = [
+  {
+    userID: 0,
+    firstName: 'Bill',
+    lastName: 'Thompson',
+    userName: 'bill_t',
+    nickName: 'Billy',
+    socialMedia: '@bill_t',
+    email: 'bill@mail.com',
+    phone: '1458546654',
+    address: '123 Oak Street, Springfield, IL',
+    biographicalInfo: 'Tech enthusiast and avid traveler. Loves coding and exploring new cultures.',
+  },
+  {
+    userID: 1,
+    firstName: 'Joe',
+    lastName: 'Miller',
+    userName: 'joe_m',
+    nickName: 'Joey',
+    socialMedia: '@joe_miller',
+    email: 'joe@mail.com',
+    phone: '1458546654',
+    address: '456 Maple Avenue, Denver, CO',
+    biographicalInfo: 'Sports lover and a coffee addict. Passionate about web development and design.',
+  },
+  {
+    userID: 2,
+    firstName: 'Annie',
+    lastName: 'Smith',
+    userName: 'annie_s',
+    nickName: 'Ann',
+    socialMedia: '@annie_smith',
+    email: 'annie@mail.com',
+    phone: '1458546654',
+    address: '',
+    biographicalInfo: 'Graphic designer with a love for photography and nature. Enjoys hiking and painting.',
+  },
+];
+
 const inboxData: InboxType[] = [
 {
   belongsTo: 1,
@@ -51,7 +90,9 @@ const inboxData: InboxType[] = [
       message: `Welcome \n Lorem ipsum dolor sit amet consectetur adipisicing elit.
       Voluptas fuga, cumque, perferendis eius dignissimos saepe qui quas molestiae asperiores
       dolorum omnis mollitia obcaecati beatae libero voluptates nam vel ad dolor.`,
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
@@ -62,7 +103,9 @@ const inboxData: InboxType[] = [
       title: 'Follow-up on our discussion',
       message: `Hey Joe, I just wanted to follow up on our last conversation. 
       Let me know when you're available to chat.`,
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "b82f6e1c-3f9d-4a5e-8c7a-0e02b2c3d479",
@@ -72,7 +115,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Project Update",
       message: "Hi Joe,\nJust wanted to give you a quick update on the project. Everything is on track, and we should be able to meet the deadline.\nBest,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "c93a7d2e-4f8e-5b6f-9d1c-0e02b2c3d479",
@@ -82,7 +127,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Meeting Reminder",
       message: "Hi Annie,\nDon't forget about our meeting tomorrow at 10 AM. Please come prepared with the quarterly report.\nCheers,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "d84b8e3f-5a9f-6c7d-8e2d-0e02b2c3d479",
@@ -92,7 +139,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Feedback Request",
       message: "Hi Bill,\nCould you please provide feedback on the latest design mockups by the end of the day?\nThanks,\nAnnie",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "e75c9f4a-6b8e-7d9f-1e3f-0e02b2c3d479",
@@ -102,7 +151,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Budget Approval",
       message: "Hi Joe,\nI need your approval on the revised budget for the Q2 project. Please review and let me know if you have any concerns.\nRegards,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "f66d8e5b-7c9f-8e1a-2f4b-0e02b2c3d479",
@@ -112,7 +163,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Client Onboarding",
       message: "Hi Annie,\nWe have a new client onboarding next week. Please prepare the necessary documents and ensure everything is in order.\nBest,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "g77e9f6c-8d1e-9f2b-3c5d-0e02b2c3d479",
@@ -122,7 +175,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Team Lunch",
       message: "Hi Bill,\nLet's organize a team lunch next Friday. Please let me know if you have any preferences for the venue.\nThanks,\nAnnie",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "h88f1e7d-9e2f-1a3c-4d6e-0e02b2c3d479",
@@ -132,7 +187,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Software Update",
       message: "Hi Joe,\nThe new software update is ready for deployment. Please review the release notes and let me know if you have any concerns.\nRegards,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "i99g2f8e-1f3d-2b4e-5f7g-0e02b2c3d479",
@@ -142,7 +199,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Training Session",
       message: "Hi Annie,\nWe have a training session scheduled for next Monday. Please ensure all team members are informed.\nCheers,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "j10h3g9f-2g4e-3c5f-6h8i-0e02b2c3d479",
@@ -152,7 +211,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Client Meeting",
       message: "Hi Bill,\nWe have a client meeting tomorrow at 2 PM. Please prepare the presentation and ensure all data is up-to-date.\nThanks,\nAnnie",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "k21i4h0g-3h5f-4d6g-7i9j-0e02b2c3d479",
@@ -162,7 +223,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Quarterly Review",
       message: "Hi Joe,\nThe quarterly review meeting is scheduled for next week. Please prepare the necessary reports and data.\nBest,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "l32j5i1h-4i6g-5e7h-8j0k-0e02b2c3d479",
@@ -172,7 +235,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Project Proposal",
       message: "Hi Annie,\nI have a new project proposal that I'd like to discuss with you. Let's set up a meeting to go over the details.\nCheers,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "m43k6j2i-5j7h-6f8i-9k1l-0e02b2c3d479",
@@ -182,7 +247,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Website Update",
       message: "Hi Bill,\nThe website update is live. Please review and let me know if you notice any issues.\nThanks,\nAnnie",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "n54l7k3j-6k8i-7g9j-0l2m-0e02b2c3d479",
@@ -192,7 +259,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Team Building Event",
       message: "Hi Joe,\nWe're planning a team-building event next month. Please let me know your availability.\nRegards,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "o65m8l4k-7l9j-8h0k-1m3n-0e02b2c3d479",
@@ -202,7 +271,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Product Launch",
       message: "Hi Annie,\nThe product launch is scheduled for next week. Please ensure all marketing materials are ready.\nBest,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "p76n9m5l-8m0k-9i1l-2n4o-0e02b2c3d479",
@@ -212,7 +283,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Monthly Report",
       message: "Hi Bill,\nThe monthly report is ready for your review. Please let me know if you need any additional information.\nThanks,\nAnnie",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "q87o0n6m-9n1l-0j2m-3o5p-0e02b2c3d479",
@@ -222,7 +295,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Client Feedback",
       message: "Hi Joe,\nWe've received some feedback from the client. Let's discuss how we can address their concerns.\nRegards,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "r98p1o7n-0o2m-1k3n-4p6q-0e02b2c3d479",
@@ -232,7 +307,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Hire Onboarding",
       message: "Hi Annie,\nWe have a new hire starting next week. Please ensure all onboarding materials are ready.\nCheers,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "s09q2p8o-1p3n-2l4o-5q7r-0e02b2c3d479",
@@ -242,7 +319,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Project Deadline",
       message: "Hi Bill,\nThe project deadline is approaching. Please ensure all tasks are completed on time.\nThanks,\nAnnie",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "t10r3q9p-2q4o-3m5p-6r8s-0e02b2c3d479",
@@ -252,7 +331,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Budget Review",
       message: "Hi Joe,\nLet's review the budget for the upcoming quarter. Please prepare the necessary documents.\nBest,\nBill",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "u21s4r0q-3r5p-4n6q-7s9t-0e02b2c3d479",
@@ -262,7 +343,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Team Meeting",
       message: "Hi Annie,\nWe have a team meeting scheduled for tomorrow. Please come prepared with updates on your tasks.\nCheers,\nJoe",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   draft: [
@@ -275,7 +358,9 @@ const inboxData: InboxType[] = [
       title: 'Project Update',
       message: `Joe, I have some updates regarding the project. 
       I'll send the details soon.`,
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   sent: [
@@ -288,7 +373,9 @@ const inboxData: InboxType[] = [
       title: 'Meeting Scheduled',
       message: `Hi Annie, the meeting is scheduled for tomorrow at 3 PM. 
       Please confirm your availability.`,
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   deleted: [
@@ -300,7 +387,9 @@ const inboxData: InboxType[] = [
       receiver: [{ email: 'bill@mail.com' }],
       title: 'Re: Email test from Joe',
       message: `Bill, I got your email. I’ll get back to you soon.`,
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   results: []
@@ -316,7 +405,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Email test from Joe",
       message: "Welcome \n Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas fuga, cumque, perferendis eius dignissimos saepe qui quas molestiae asperiores dolorum omnis mollitia obcaecati beatae libero voluptates nam vel ad dolor.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "b47ac10b-58cc-4372-a567-0e02b2c3d480",
@@ -326,7 +417,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Project Update",
       message: "Hi Annie, the project is progressing well. Let's discuss the next steps.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "c47ac10b-58cc-4372-a567-0e02b2c3d481",
@@ -336,7 +429,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Meeting Reminder",
       message: "Hi Annie, don't forget about our meeting tomorrow at 10 AM.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "d47ac10b-58cc-4372-a567-0e02b2c3d482",
@@ -346,7 +441,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Feedback Request",
       message: "Hi Bill, could you please provide feedback on the latest design mockups?",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "e47ac10b-58cc-4372-a567-0e02b2c3d483",
@@ -356,7 +453,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Budget Approval",
       message: "Hi Joe, I need your approval on the revised budget for the Q2 project.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "f47ac10b-58cc-4372-a567-0e02b2c3d484",
@@ -366,7 +465,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Client Onboarding",
       message: "Hi Annie, we have a new client onboarding next week. Please prepare the necessary documents.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "g47ac10b-58cc-4372-a567-0e02b2c3d485",
@@ -376,7 +477,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Team Lunch",
       message: "Hi Bill, let's organize a team lunch next Friday. Please let me know your preferences.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "h47ac10b-58cc-4372-a567-0e02b2c3d486",
@@ -386,7 +489,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Software Update",
       message: "Hi Joe, the new software update is ready for deployment. Please review the release notes.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "i47ac10b-58cc-4372-a567-0e02b2c3d487",
@@ -396,7 +501,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Training Session",
       message: "Hi Annie, we have a training session scheduled for next Monday. Please ensure all team members are informed.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "j47ac10b-58cc-4372-a567-0e02b2c3d488",
@@ -406,7 +513,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Client Meeting",
       message: "Hi Bill, we have a client meeting tomorrow at 2 PM. Please prepare the presentation.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "k47ac10b-58cc-4372-a567-0e02b2c3d489",
@@ -416,7 +525,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Quarterly Review",
       message: "Hi Joe, the quarterly review meeting is scheduled for next week. Please prepare the necessary reports.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "l47ac10b-58cc-4372-a567-0e02b2c3d490",
@@ -426,7 +537,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Project Proposal",
       message: "Hi Annie, I have a new project proposal that I'd like to discuss with you. Let's set up a meeting.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "m47ac10b-58cc-4372-a567-0e02b2c3d491",
@@ -436,7 +549,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Website Update",
       message: "Hi Bill, the website update is live. Please review and let me know if you notice any issues.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "n47ac10b-58cc-4372-a567-0e02b2c3d492",
@@ -446,7 +561,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Team Building Event",
       message: "Hi Joe, we're planning a team-building event next month. Please let me know your availability.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "o47ac10b-58cc-4372-a567-0e02b2c3d493",
@@ -456,7 +573,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Product Launch",
       message: "Hi Annie, the product launch is scheduled for next week. Please ensure all marketing materials are ready.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "p47ac10b-58cc-4372-a567-0e02b2c3d494",
@@ -466,7 +585,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Monthly Report",
       message: "Hi Bill, the monthly report is ready for your review. Please let me know if you need any additional information.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "q47ac10b-58cc-4372-a567-0e02b2c3d495",
@@ -476,7 +597,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Client Feedback",
       message: "Hi Joe, we've received some feedback from the client. Let's discuss how we can address their concerns.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "r47ac10b-58cc-4372-a567-0e02b2c3d496",
@@ -486,7 +609,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Hire Onboarding",
       message: "Hi Annie, we have a new hire starting next week. Please ensure all onboarding materials are ready.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "s47ac10b-58cc-4372-a567-0e02b2c3d497",
@@ -496,7 +621,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Project Deadline",
       message: "Hi Bill, the project deadline is approaching. Please ensure all tasks are completed on time.",
-      emailRead: false
+      emailRead: false,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   draft: [
@@ -508,7 +635,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Project Update",
       message: "Joe, I have some updates regarding the project. I'll send the details soon.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "u47ac10b-58cc-4372-a567-0e02b2c3d499",
@@ -518,7 +647,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Meeting Scheduled",
       message: "Hi Annie, the meeting is scheduled for tomorrow at 3 PM. Please confirm your availability.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   sent: [
@@ -530,7 +661,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Re: Email test from Joe",
       message: "Bill, I got your email. I’ll get back to you soon.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "w47ac10b-58cc-4372-a567-0e02b2c3d501",
@@ -540,7 +673,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "New Client Onboarding",
       message: "Hi Annie, we have a new client onboarding next week. Please prepare the necessary documents.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "x47ac10b-58cc-4372-a567-0e02b2c3d502",
@@ -550,7 +685,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "bill@mail.com" }],
       title: "Team Lunch",
       message: "Hi Bill, let's organize a team lunch next Friday. Please let me know your preferences.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "y47ac10b-58cc-4372-a567-0e02b2c3d503",
@@ -560,7 +697,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "joe@mail.com" }],
       title: "Software Update",
       message: "Hi Joe, the new software update is ready for deployment. Please review the release notes.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     },
     {
       id: "z47ac10b-58cc-4372-a567-0e02b2c3d504",
@@ -570,7 +709,9 @@ const inboxData: InboxType[] = [
       receiver: [{ "email": "annie@mail.com" }],
       title: "Training Session",
       message: "Hi Annie, we have a training session scheduled for next Monday. Please ensure all team members are informed.",
-      emailRead: true
+      emailRead: true,
+      fontSize: '16',
+      fontType: 'Nunito',
     }
   ],
   deleted: [],
@@ -580,5 +721,6 @@ const inboxData: InboxType[] = [
 
 export {
   users,
-  inboxData
+  inboxData,
+  profiles
 }
